@@ -31,7 +31,7 @@ namespace Controller
         
         public void RemoveDepartment(string depName)
         {
-           
+            Department currentDep = GetDepartmentByName(depName);
             using (businessContext = new BusinessProjectDbContext())
             {
                 
@@ -39,19 +39,22 @@ namespace Controller
                 var result = (from r in businessContext.Employees select r).ToList();
                 foreach (var emp in result)
                 {
-                    if (emp.Dep==GetDepartmentByName(depName))
+                    if (emp.Dep==currentDep)
                     {
                         Employee newEmployee = new Employee(emp.Name, emp.Year, emp.Status, emp.Internship, businessContext.Departments.First(x => x.Name == "TemporaryDepartment"));                  
                         
                         empList.Add(newEmployee);
                     }
                 }
+                
                 foreach (var el in empList)
                 {
                     businessContext.Employees.Add(el);
                     businessContext.SaveChanges();
 
                 }
+
+
                 businessContext.Departments.Remove(businessContext.Departments.FirstOrDefault(x=> x.Name == depName));
                 businessContext.SaveChanges();
             }
