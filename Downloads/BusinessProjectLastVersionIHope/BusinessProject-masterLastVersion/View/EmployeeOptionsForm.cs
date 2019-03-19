@@ -21,7 +21,7 @@ namespace View
         public EmployeeOptionsForm()
         {
             InitializeComponent();
-            SelectDepartment_CmbBox.Items.AddRange(depController.GetAllDepartments().Select(x => x.Name).ToArray());
+            SelectDepartment_CmbBox.DataSource=depController.GetAllDepartments().Select(x => x.Name).ToArray();
         }
 
         private void SearchBox_TextChanged(object sender, EventArgs e)

@@ -106,23 +106,25 @@ namespace Controller
         
         public void ReworkDepartmentName(string currentDePName, string newDepName)
         {
+            Department depForRework = GetDepartmentByName(currentDePName);
             using (businessContext = new BusinessProjectDbContext())
             {
-                businessContext.Departments.First(x => x.Name == currentDePName).Name = newDepName;
+                depForRework.Name = newDepName;
                 businessContext.SaveChanges();
             }
         }
 
         public void ReworkDepartmentSalary(string currentDepName, string salary)
         {
+            Department depForRework = GetDepartmentByName(currentDepName);
             using (businessContext = new BusinessProjectDbContext())
             {
-                businessContext.Departments.First(x => x.Name == currentDepName).BaseSalary = double.Parse(salary);
+                depForRework.BaseSalary = double.Parse(salary);
                 businessContext.SaveChanges();
 
-                foreach (var emp in businessContext.Departments.First(x => x.Name == currentDepName).Employees)
+                foreach (var emp in depForRework.Employees)
                 {
-                    if (emp.Salary < businessContext.Departments.First(x => x.Name == currentDepName).BaseSalary)
+                    if (emp.Salary < depForRework.BaseSalary)
                     {
                         emp.CalculateSalary();
                         businessContext.SaveChanges();

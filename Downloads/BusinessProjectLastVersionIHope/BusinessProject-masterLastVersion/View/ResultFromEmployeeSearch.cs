@@ -25,7 +25,7 @@ namespace View
             this.InternshipBox.Text = currentEmployee.Internship.ToString();
             this.SalaryTxtBox.Text = currentEmployee.Salary.ToString();
 
-            SelectDepartment_CmbBox.Items.AddRange(depController.GetAllDepartments().Select(x => x.Name).ToArray());
+            SelectDepartment_CmbBox.DataSource=depController.GetAllDepartments().Select(x => x.Name).ToArray();
 
             if (currentEmployee.Status.Equals(FamilyStatus.married))
             {
