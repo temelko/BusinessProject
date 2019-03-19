@@ -9,6 +9,7 @@ namespace Controller
 {
    public class DepartmentController
     {
+
         public DepartmentController()
         {
 
@@ -30,7 +31,7 @@ namespace Controller
         
         public void RemoveDepartment(string depName)
         {
-            EmployeeController empController = new EmployeeController();
+           
             using (businessContext = new BusinessProjectDbContext())
             {
                 
@@ -38,13 +39,10 @@ namespace Controller
                 var result = (from r in businessContext.Employees select r).ToList();
                 foreach (var emp in result)
                 {
-                    if (emp.Dep==businessContext.Departments.First(x=> x.Name==depName))
+                    if (emp.Dep==GetDepartmentByName(depName))
                     {
                         Employee newEmployee = new Employee(emp.Name, emp.Year, emp.Status, emp.Internship, businessContext.Departments.First(x => x.Name == "TemporaryDepartment"));                  
                         
-                        businessContext.Employees.Remove(emp);
-                        businessContext.SaveChanges();
-
                         empList.Add(newEmployee);
                     }
                 }
@@ -54,7 +52,7 @@ namespace Controller
                     businessContext.SaveChanges();
 
                 }
-                businessContext.Departments.Remove(businessContext.Departments.First(x=> x.Name==depName));
+                businessContext.Departments.Remove(businessContext.Departments.FirstOrDefault(x=> x.Name == depName));
                 businessContext.SaveChanges();
             }
 
@@ -147,6 +145,13 @@ namespace Controller
             }
         }
 
+        public List<Employee> ReturnEmployees()
+        {
+            using (businessContext = new BusinessProjectDbContext())
+            {
+                return businessContext.Employees.ToList();
+            }
+        }
 
 
             // Peca DONT'T USE THIS METHOD!!!

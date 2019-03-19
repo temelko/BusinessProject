@@ -284,6 +284,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "EmployeeOptionsForm";
             this.Text = "Employees";
+            this.Load += new System.EventHandler(this.EmployeeOptionsForm_Load);
             this.Click += new System.EventHandler(this.EmployeeOptionsForm_Click_1);
             this.ResumeLayout(false);
             this.PerformLayout();

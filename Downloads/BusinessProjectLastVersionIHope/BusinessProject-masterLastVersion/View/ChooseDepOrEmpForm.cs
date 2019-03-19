@@ -14,7 +14,7 @@ namespace View
 {
     public partial class ChooseDepOrEmpForm : Form
     {
-        //BusinessProjectDbContext db;
+   
         public ChooseDepOrEmpForm()
         {
             InitializeComponent();
@@ -48,7 +48,7 @@ namespace View
 
         private void ChooseDepOrEmpForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Application.Exit();
+           
         }
     }
 }

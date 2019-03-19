@@ -45,5 +45,10 @@ namespace View
                 LogInBtn.PerformClick();
             }
         }
+
+        private void LoginForm_Load(object sender, EventArgs e)
+        {
+            
+        }
     }
 }

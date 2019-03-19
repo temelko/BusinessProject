@@ -242,6 +242,7 @@
             this.Controls.Add(this.label1);
             this.Name = "ResultFromEmployeeSearch";
             this.Text = "ResultFromEmployeeSearch";
+            this.Load += new System.EventHandler(this.ResultFromEmployeeSearch_Load_1);
             this.ResumeLayout(false);
             this.PerformLayout();
 

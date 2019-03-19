@@ -66,16 +66,36 @@ namespace View
 
         private void SaveBtn_Click(object sender, EventArgs e)
         {
-            FamilyStatus famStatus = FamilyStatus.single;
-            if (MarriedRBtn.Checked)
+            try
             {
-                famStatus = FamilyStatus.married;
+                FamilyStatus famStatus = FamilyStatus.single;
+                if (MarriedRBtn.Checked)
+                {
+                    famStatus = FamilyStatus.married;
+                }
+                Department currentDep = depController.GetDepartmentByName(SelectDepartment_CmbBox.Text);
+                if (!employeeController.EmployeeSalaryValidation(SalaryTxtBox.Text, currentDep))
+                {
+                    throw new Exception("The salary is too low!");
+                }
+                employeeController.ReworkEmployee(currentEmployee, NameBox.Text, int.Parse(SalaryTxtBox.Text), famStatus, int.Parse(InternshipBox.Text), depController.GetDepartmentByName(SelectDepartment_CmbBox.Text), double.Parse(SalaryTxtBox.Text));
+                MessageBox.Show("Operation is successful!", "Successful operation", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Visible = false;
+                EmployeeOptionsForm emp = new EmployeeOptionsForm();
+                emp.Visible = true;
             }
-            employeeController.ReworkEmployee(currentEmployee, NameBox.Text, int.Parse(SalaryTxtBox.Text), famStatus, int.Parse(InternshipBox.Text), depController.GetDepartmentByName(SelectDepartment_CmbBox.Text));
-            MessageBox.Show("Operation is successful!", "Successful operation", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            this.Visible = false;
-            EmployeeOptionsForm emp = new EmployeeOptionsForm();
-            emp.Visible = true;
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message, "Incorrect data",
+               MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            
+        }
+
+        private void ResultFromEmployeeSearch_Load_1(object sender, EventArgs e)
+        {
+           
         }
     }
 }

@@ -40,11 +40,10 @@ namespace View
             try
             {
                 depController.ReworkDepartmentName(currentDepName, DepartmentNameBox.Text);
-                if (depController.GetDepartmentByName(DepartmentNameBox.Text).BaseSalary != double.Parse(DepartBaseSalaryBox.Text))
-                {
+                
                     if (!depController.DepartmentSalaryDataValidation(double.Parse(DepartBaseSalaryBox.Text)))
                     {
-                        throw new Exception("Salary is too low!");
+                        throw new NullReferenceException("Salary is too low!");
                     }
                     else
                     {
@@ -56,15 +55,20 @@ namespace View
                         dep.Visible = true;
                     }
 
-                }
+                
+            }
+            catch (NullReferenceException nEx)
+            {
+                MessageBox.Show(nEx.Message, "Incorrect data",
+                MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             catch (Exception ex)
             {
 
-                MessageBox.Show(ex.Message, "Incorrect data",
-                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Operation is successful!", "Successful operation", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
             }
-            
+
         }
 
         private void DepartmentNameBox_TextChanged(object sender, EventArgs e)
@@ -94,5 +98,6 @@ namespace View
                 depOpt.Visible = true;
           
         }
+
     }
 }

@@ -146,11 +146,12 @@
             this.Controls.Add(this.DepartmentNameBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ResultsFromDepartmentSearch";
+            this.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Rework department";
+            this.TopMost = true;
             this.Load += new System.EventHandler(this.ResultsFromDepartmentSearch_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

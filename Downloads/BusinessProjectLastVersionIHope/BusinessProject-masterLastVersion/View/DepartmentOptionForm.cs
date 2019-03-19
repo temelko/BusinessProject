@@ -49,6 +49,7 @@ namespace View
                 {
                     depController.AddDepartment(depName, salary);
                     MessageBox.Show("Operation is successful!", "Successful operation", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ClearInput();
                 }
             }
                       
@@ -147,7 +148,13 @@ namespace View
 
         private void DepartmentOptionForm_Load(object sender, EventArgs e)
         {
-           
+         
+        }
+
+        private void ClearInput()
+        {
+            this.DepartmentNameBox.Text = string.Empty;
+            this.DepartBaseSalaryBox.Text = string.Empty;
         }
     }
 }

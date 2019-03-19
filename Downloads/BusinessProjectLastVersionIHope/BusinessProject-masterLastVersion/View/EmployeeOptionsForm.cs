@@ -60,7 +60,7 @@ namespace View
                 {
                     throw new InvalidOperationException();
                 }
-              
+             
               
                     empController.AddEmployee(NameBox.Text, int.Parse(YearBox.Text),
                         famStat, int.Parse(InternshipBox.Text),
@@ -128,6 +128,11 @@ namespace View
             this.MarriedRBtn.Checked = false;
             this.SingleRBtn.Checked = false;
             this.SelectDepartment_CmbBox.Text = string.Empty;
+        }
+
+        private void EmployeeOptionsForm_Load(object sender, EventArgs e)
+        {
+         
         }
     }
 }

@@ -88,7 +88,7 @@ namespace Controller
 
         }
 
-        public void ReworkEmployee(Employee foundEmployee, string name, int year, FamilyStatus fStat, int internship, Department dep)
+        public void ReworkEmployee(Employee foundEmployee, string name, int year, FamilyStatus fStat, int internship, Department dep, double salary)
         {
             using (businessContext = new BusinessProjectDbContext())
             {
@@ -99,6 +99,7 @@ namespace Controller
                 employee.Status = fStat;
                 employee.Internship = internship;
                 employee.Dep = dep;
+                employee.Salary = salary;
                 businessContext.SaveChanges();
             }
 
@@ -161,6 +162,17 @@ namespace Controller
             }
             return true;
         }
-     
+
+        public bool EmployeeSalaryValidation(string salary, Department d)
+        {
+            using (businessContext=new BusinessProjectDbContext())
+            {
+                if (int.Parse(salary) < d.BaseSalary)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }
