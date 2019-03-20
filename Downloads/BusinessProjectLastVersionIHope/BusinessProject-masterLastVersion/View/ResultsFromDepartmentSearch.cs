@@ -15,12 +15,13 @@ namespace View
     {
         DepartmentController depController = new DepartmentController();
         private string currentDepName;
+        private Department currentDepartment;
         public void SetDepartmentName(string currentDepartmentName)
         {
             currentDepName = currentDepartmentName;
-
+            currentDepartment = depController.GetDepartmentByName(currentDepName);
         }
-
+        
         public ResultsFromDepartmentSearch()
         {
             InitializeComponent();
@@ -39,35 +40,33 @@ namespace View
 
             try
             {
-                depController.ReworkDepartmentName(currentDepName, DepartmentNameBox.Text);
+                depController.ReworkDepartmentName(currentDepartment, DepartmentNameBox.Text);
                 
                     if (!depController.DepartmentSalaryDataValidation(double.Parse(DepartBaseSalaryBox.Text)))
                     {
                         throw new NullReferenceException("Salary is too low!");
                     }
-                    else
-                    {
+                    //else if (currentDepartment.BaseSalary!=double.Parse(DepartBaseSalaryBox.Text))
+                   // {
 
-                        depController.ReworkDepartmentSalary(currentDepName, DepartBaseSalaryBox.Text);
-                        MessageBox.Show("Operation is successful!", "Successful operation", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        this.Visible = false;
-                        DepartmentOptionForm dep = new DepartmentOptionForm();
-                        dep.Visible = true;
-                    }
-
-                
-            }
-            catch (NullReferenceException nEx)
-            {
-                MessageBox.Show(nEx.Message, "Incorrect data",
-                MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            catch (Exception ex)
-            {
-
+                        depController.ReworkDepartmentSalary(currentDepartment, double.Parse(DepartBaseSalaryBox.Text));
+                     
+                    //}
                 MessageBox.Show("Operation is successful!", "Successful operation", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Visible = false;
+                DepartmentOptionForm dep = new DepartmentOptionForm();
+                dep.Visible = true;
 
-            }
+
+             }
+
+             catch (Exception ex)
+              {
+
+              MessageBox.Show(ex.Message, "Incorrect data",
+                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+             }
 
         }
 

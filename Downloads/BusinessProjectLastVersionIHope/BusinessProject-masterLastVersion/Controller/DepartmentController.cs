@@ -104,27 +104,28 @@ namespace Controller
             }
         }
         
-        public void ReworkDepartmentName(string currentDePName, string newDepName)
+        public void ReworkDepartmentName(Department currentDep, string newDepName)
         {
-            Department depForRework = GetDepartmentByName(currentDePName);
+            
             using (businessContext = new BusinessProjectDbContext())
             {
-                depForRework.Name = newDepName;
+                Department departmentForRework = businessContext.Departments.First(x=> x.DepartmentId == currentDep.DepartmentId );
+                departmentForRework.Name = newDepName;
                 businessContext.SaveChanges();
             }
         }
 
-        public void ReworkDepartmentSalary(string currentDepName, string salary)
+        public void ReworkDepartmentSalary(Department currentDep, double salary)
         {
-            Department depForRework = GetDepartmentByName(currentDepName);
+            
             using (businessContext = new BusinessProjectDbContext())
             {
-                depForRework.BaseSalary = double.Parse(salary);
+                currentDep.BaseSalary = salary;
                 businessContext.SaveChanges();
 
-                foreach (var emp in depForRework.Employees)
+                foreach (var emp in currentDep.Employees)
                 {
-                    if (emp.Salary < depForRework.BaseSalary)
+                    if (emp.Salary < currentDep.BaseSalary)
                     {
                         emp.CalculateSalary();
                         businessContext.SaveChanges();
@@ -133,6 +134,7 @@ namespace Controller
             }
         
         }
+     
 
         public IEnumerable<Department> GetAllDepartments()
         {
