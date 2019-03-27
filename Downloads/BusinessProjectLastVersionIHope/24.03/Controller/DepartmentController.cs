@@ -34,30 +34,31 @@ namespace Controller
 
             using (businessContext = new BusinessProjectDbContext())
             {
-                
-                List<Employee> empList = new List<Employee>();
+
+                //List<Employee> empList = new List<Employee>();
                 var result = (from r in businessContext.Employees select r).ToList();
                 foreach (var emp in result)
                 {
-                    if (emp.Dep==businessContext.Departments.FirstOrDefault(x=> x.Name == depName))
+                    if (emp.Dep == businessContext.Departments.FirstOrDefault(x => x.Name == depName))
                     {
-                        Employee newEmployee = new Employee(emp.Name, emp.Year, emp.Status, emp.Internship, businessContext.Departments.First(x => x.Name == "TemporaryDepartment"));                  
-                        
-                        empList.Add(newEmployee);
+                        emp.Dep = businessContext.Departments.First(x => x.Name == "TemporaryDepartment");
+                        businessContext.SaveChanges();
                     }
                 }
-                
-                foreach (var el in empList)
-                {
-                    businessContext.Employees.Add(el);
-                    businessContext.SaveChanges();
 
-                }
+                //foreach (var el in empList)
+                //{
+                //    businessContext.Employees.Add(el);
+                //    businessContext.SaveChanges();
+
+                //}
 
 
-                businessContext.Departments.Remove(businessContext.Departments.FirstOrDefault(x=> x.Name == depName));
+                businessContext.Departments.Remove(businessContext.Departments.FirstOrDefault(x => x.Name == depName));
                 businessContext.SaveChanges();
             }
+
+
 
         }
 
